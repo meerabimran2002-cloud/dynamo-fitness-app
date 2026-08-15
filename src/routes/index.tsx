@@ -466,5 +466,3 @@ function InfoRow({ icon: Icon, text }: { icon: typeof MapPin; text: string }) {
   );
 }
 
-// keeps unused-import lint quiet for effect-only hook usage
-export const _unused = useEffect;
