@@ -49,7 +49,10 @@ function AuthPage() {
         },
       });
       setLoading(false);
-      if (error) return toast.error(error.message);
+      if (error) {
+        toast.error(error.message);
+        return;
+      }
       if (!data.session) toast.success("Check your email to confirm your account.");
       else toast.success("Welcome to Iron Pulse!");
     } else {
@@ -58,7 +61,10 @@ function AuthPage() {
         password: form.password,
       });
       setLoading(false);
-      if (error) return toast.error(error.message);
+      if (error) {
+        toast.error(error.message);
+        return;
+      }
       toast.success("Welcome back!");
     }
   }
@@ -67,10 +73,14 @@ function AuthPage() {
     const result = await lovable.auth.signInWithOAuth("google", {
       redirect_uri: window.location.origin,
     });
-    if (result.error) return toast.error("Google sign-in failed. Please try again.");
+    if (result.error) {
+      toast.error("Google sign-in failed. Please try again.");
+      return;
+    }
     if (result.redirected) return;
     navigate({ to: "/", replace: true });
   }
+
 
   return (
     <div className="flex min-h-screen items-center justify-center bg-background px-5 py-16">

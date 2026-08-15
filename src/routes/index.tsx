@@ -1,5 +1,5 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { useQuery } from "@tanstack/react-query";
 import {
   Dumbbell,
@@ -466,5 +466,3 @@ function InfoRow({ icon: Icon, text }: { icon: typeof MapPin; text: string }) {
   );
 }
 
-// keeps unused-import lint quiet for effect-only hook usage
-export const _unused = useEffect;
