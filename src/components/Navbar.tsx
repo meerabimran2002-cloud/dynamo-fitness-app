@@ -50,7 +50,7 @@ export function Navbar() {
           </span>
         </Link>
 
-        <nav className="hidden items-center gap-7 lg:flex">
+        <nav className="hidden items-center gap-7 md:flex">
           {links.map((l) => (
             <a
               key={l.href}
@@ -82,14 +82,14 @@ export function Navbar() {
         <button
           aria-label="Toggle menu"
           onClick={() => setOpen((v) => !v)}
-          className="grid size-10 shrink-0 place-items-center rounded-xl border border-border bg-card lg:hidden"
+          className="grid size-10 shrink-0 place-items-center rounded-xl border border-border bg-card md:hidden"
         >
           {open ? <X className="size-5" /> : <Menu className="size-5" />}
         </button>
       </div>
 
       {open && (
-        <div className="border-t border-border bg-background/95 px-5 pb-6 pt-2 backdrop-blur-xl lg:hidden">
+        <div className="border-t border-border bg-background/95 px-5 pb-6 pt-2 backdrop-blur-xl md:hidden">
           <div className="flex flex-col gap-1">
             {links.map((l) => (
               <a
