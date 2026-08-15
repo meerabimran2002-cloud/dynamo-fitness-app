@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { Link, useNavigate } from "@tanstack/react-router";
 import { Dumbbell, Menu, X, LogOut, LayoutDashboard, ShieldCheck } from "lucide-react";
 import { supabase } from "@/integrations/supabase/client";
-import { useSession, useIsAdmin } from "@/hooks/use-session";
+import { useSession } from "@/hooks/use-session";
 import { Button } from "@/components/ui/button";
 
 const links = [
@@ -18,7 +18,6 @@ export function Navbar() {
   const [open, setOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
   const { user } = useSession();
-  const isAdmin = useIsAdmin(user?.id);
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -60,14 +59,12 @@ export function Navbar() {
               {l.label}
             </a>
           ))}
-          {isAdmin && (
-            <Link
-              to="/admin"
-              className="flex items-center gap-1.5 rounded-full border border-secondary/40 px-3 py-1.5 text-sm font-semibold uppercase tracking-wide text-secondary hover:bg-secondary/10"
-            >
-              <ShieldCheck className="size-4" /> Admin
-            </Link>
-          )}
+          <Link
+            to="/admin"
+            className="flex items-center gap-1.5 rounded-full border border-secondary/40 px-3 py-1.5 text-sm font-semibold uppercase tracking-wide text-secondary hover:bg-secondary/10"
+          >
+            <ShieldCheck className="size-4" /> Admin
+          </Link>
           {user ? (
             <Button variant="outline" size="sm" className="rounded-full" onClick={signOut}>
               <LogOut className="size-4" /> Logout
@@ -101,15 +98,13 @@ export function Navbar() {
                 {l.label}
               </a>
             ))}
-            {isAdmin && (
-              <Link
-                to="/admin"
-                onClick={() => setOpen(false)}
-                className="flex items-center gap-2 rounded-lg px-3 py-3 text-sm font-semibold uppercase text-secondary"
-              >
-                <LayoutDashboard className="size-4" /> Admin Panel
-              </Link>
-            )}
+            <Link
+              to="/admin"
+              onClick={() => setOpen(false)}
+              className="flex items-center gap-2 rounded-lg px-3 py-3 text-sm font-semibold uppercase text-secondary"
+            >
+              <LayoutDashboard className="size-4" /> Admin Panel
+            </Link>
             {user ? (
               <Button variant="outline" className="mt-3 rounded-full" onClick={signOut}>
                 <LogOut className="size-4" /> Logout
