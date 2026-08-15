@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { Link, useNavigate } from "@tanstack/react-router";
-import { Dumbbell, Menu, X, LogOut, LayoutDashboard } from "lucide-react";
+import { Dumbbell, Menu, X, LogOut, LayoutDashboard, ShieldCheck } from "lucide-react";
 import { supabase } from "@/integrations/supabase/client";
 import { useSession, useIsAdmin } from "@/hooks/use-session";
 import { Button } from "@/components/ui/button";
@@ -63,9 +63,9 @@ export function Navbar() {
           {isAdmin && (
             <Link
               to="/admin"
-              className="text-sm font-semibold uppercase tracking-wide text-secondary hover:opacity-80"
+              className="flex items-center gap-1.5 rounded-full border border-secondary/40 px-3 py-1.5 text-sm font-semibold uppercase tracking-wide text-secondary hover:bg-secondary/10"
             >
-              Admin
+              <ShieldCheck className="size-4" /> Admin
             </Link>
           )}
           {user ? (
