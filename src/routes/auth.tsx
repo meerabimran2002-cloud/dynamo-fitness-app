@@ -8,7 +8,7 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { supabase } from "@/integrations/supabase/client";
 import { useSession } from "@/hooks/use-session";
-import { lovable } from "@/integrations/lovable/index";
+
 
 export const Route = createFileRoute("/auth")({
   head: () => ({
@@ -53,8 +53,17 @@ function AuthPage() {
         toast.error(error.message);
         return;
       }
-      if (!data.session) toast.success("Check your email to confirm your account.");
-      else toast.success("Welcome to Iron Pulse!");
+      toast.success("Welcome to Iron Pulse!");
+      if (!data.session) {
+        const { error: signInError } = await supabase.auth.signInWithPassword({
+          email: form.email,
+          password: form.password,
+        });
+        if (signInError) {
+          toast.error(signInError.message);
+          return;
+        }
+      }
     } else {
       const { error } = await supabase.auth.signInWithPassword({
         email: form.email,
@@ -69,17 +78,6 @@ function AuthPage() {
     }
   }
 
-  async function googleSignIn() {
-    const result = await lovable.auth.signInWithOAuth("google", {
-      redirect_uri: window.location.origin,
-    });
-    if (result.error) {
-      toast.error("Google sign-in failed. Please try again.");
-      return;
-    }
-    if (result.redirected) return;
-    navigate({ to: "/", replace: true });
-  }
 
 
   return (
@@ -156,13 +154,6 @@ function AuthPage() {
             </Button>
           </form>
 
-          <div className="my-5 flex items-center gap-3 text-xs uppercase text-muted-foreground">
-            <span className="h-px flex-1 bg-border" /> or <span className="h-px flex-1 bg-border" />
-          </div>
-
-          <Button variant="outline" className="w-full rounded-full" onClick={googleSignIn}>
-            Continue with Google
-          </Button>
 
           <p className="mt-6 text-center text-sm text-muted-foreground">
             {mode === "login" ? "New here?" : "Already a member?"}{" "}
