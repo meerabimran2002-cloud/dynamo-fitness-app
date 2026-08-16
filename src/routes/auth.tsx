@@ -154,13 +154,6 @@ function AuthPage() {
             </Button>
           </form>
 
-          <div className="my-5 flex items-center gap-3 text-xs uppercase text-muted-foreground">
-            <span className="h-px flex-1 bg-border" /> or <span className="h-px flex-1 bg-border" />
-          </div>
-
-          <Button variant="outline" className="w-full rounded-full" onClick={googleSignIn}>
-            Continue with Google
-          </Button>
 
           <p className="mt-6 text-center text-sm text-muted-foreground">
             {mode === "login" ? "New here?" : "Already a member?"}{" "}
