@@ -53,8 +53,17 @@ function AuthPage() {
         toast.error(error.message);
         return;
       }
-      if (!data.session) toast.success("Check your email to confirm your account.");
-      else toast.success("Welcome to Iron Pulse!");
+      toast.success("Welcome to Iron Pulse!");
+      if (!data.session) {
+        const { error: signInError } = await supabase.auth.signInWithPassword({
+          email: form.email,
+          password: form.password,
+        });
+        if (signInError) {
+          toast.error(signInError.message);
+          return;
+        }
+      }
     } else {
       const { error } = await supabase.auth.signInWithPassword({
         email: form.email,
